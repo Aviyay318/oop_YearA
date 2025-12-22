@@ -1,8 +1,10 @@
 public class Main {
     public static void main(String[] args) {
 
-       Student s1 = new Student();
-       Student s2 =  new Student("111");
-
+        Student student = new Student("avi" ,20 ,90);
+        student.printDetails();
+        System.out.println(student.isExcellent());
+        student.birthday();
+        student.printDetails();
     }
 }

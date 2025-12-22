@@ -1,16 +1,26 @@
 public class Student {
-
-    private String id;
     private String name;
-    private int [] grades;
+    private int age;
+    private double average;
 
-    public Student(String id ,String name){
-        this.id = id;
+
+    public Student(String name,int age , double average){
+        this.age = age;
         this.name = name;
+        this.average =average;
     }
-    public Student(){}
 
-    public Student(String id){
-        this.id =id;
+   public void printDetails(){
+       System.out.println("name: "+ this.name + " age: " + this.age + " average : " + this.average);
+   }
+    public boolean isExcellent(){
+       boolean isExcellent = false;
+       if (this.average >= 90){
+           isExcellent = true;
+       }
+       return isExcellent;
+    }
+    public void birthday(){
+       this.age++;
     }
 }
