@@ -1,7 +1,7 @@
 public class Order {
  private double price;
  private String address;
- private String name;
+ private String fullName;
  private int orderTime;
  private int deliveryTime;
 
@@ -22,6 +22,10 @@ public String getCityNameWithSplit(){
             cityName = this.address.substring(index+2);
         }
         return cityName;
+    }
+
+    public String getFullName(){
+    return this.fullName;
     }
 
 }

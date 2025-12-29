@@ -46,4 +46,74 @@ public int getCountOfCityName(String cityName){
 }
 
 
+
+//פונקציית עזר שתקבל שם של עיר ותחזיר את הקילומטר - המחק מהחנות
+  //עלות ההגעה לעיר
+    private double getCityDeliveryCost(String cityName){
+    double kilometer = 0;
+        for (int i = 0; i < this.cityDeliveries.length; i++) {
+            CityDelivery cityDelivery = this.cityDeliveries[i];
+            if (cityDelivery.getCityName().equals(cityName)){
+                kilometer = cityDelivery.getKilometer();
+                break;
+            }
+        }
+        return kilometer * 4.5;
+    }
+
+    private double deliveryCost(String cityName){
+       double cityDeliveryCost = getCityDeliveryCost(cityName);
+       double countOfCityDelivery = getCountOfCityName(cityName);
+
+       return cityDeliveryCost / countOfCityDelivery;
+    }
+
+   public String[] clientsWithExpensiveDeliveryWithSplit(int price){
+    String [] names;
+    String initialsNames = "";
+       for (int i = 0; i < this.orders.length; i++) {
+           Order order = this.orders[i];
+           double deliveryCost = deliveryCost(order.getCityNameWithSplit());
+           if (deliveryCost > price){
+               initialsNames += initialsName(order.getFullName()) + "$";
+           }
+       }
+       names = initialsNames.split("$");
+       return names;
+    }
+
+    private String initialsName(String fullName){
+     String initials = "";
+     String [] splitName = fullName.split(" ");
+        for (int i = 0; i < splitName.length; i++) {
+            char firstLetter = splitName[i].charAt(0);
+            initials+=firstLetter;
+        }
+        return initials.toUpperCase();
+    }
+
+
+    public String[] clientsWithExpensiveDelivery(int price){
+        String [] names;
+        int count = 0;
+        for (int i = 0; i < this.orders.length; i++) {
+            Order order = this.orders[i];
+            double deliveryCost = deliveryCost(order.getCityNameWithSplit());
+            if (deliveryCost > price){
+               count++;
+            }
+        }
+       names = new String[count];
+        int index = 0;
+
+        for (int i = 0; i < this.orders.length; i++) {
+            Order order = this.orders[i];
+            double deliveryCost = deliveryCost(order.getCityNameWithSplit());
+            if (deliveryCost > price){
+              names[index] = initialsName(order.getFullName());
+              index++;
+            }
+        }
+        return names;
+    }
 }
