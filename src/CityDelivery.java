@@ -7,10 +7,12 @@ public class CityDelivery {
         this.kilometer = kilometer;
     }
 
-    public double getKilometer(){
-        return this.kilometer;
-    }
-    public String getCityName(){
+public String getCityName(){
         return this.cityName;
-    }
+}
+
+
+public double getKilometer(){
+        return this.kilometer;
+}
 }

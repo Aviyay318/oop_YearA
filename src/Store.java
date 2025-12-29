@@ -1,10 +1,6 @@
 import java.io.StringReader;
 
 public class Store {
-//
-//    כתבו את המחלקה Store המייצגת את החנות. במחלקה יהיו השדות
-//    Order[] – רשימת ההזמנות שאמורות לצאת מהחנות.
-//            CityDelivery[] – רשימת הערים והמרחקים שלהן מהחנות.
 
     private Order [] orders;
     private CityDelivery [] cityDeliveries;
@@ -15,25 +11,39 @@ public class Store {
 //    המתודה מחזירה את שמה של העיר שעלות המשלוח אליה היא היקרה ביותר.
 
 
-    //פונקציה מחזירה את עלות המשלוח לעיר
-    private double getDeliveryCostForCity(String cityName){
-        double kilometer = 0;
-        for (int i = 0; i < this.cityDeliveries.length; i++) {
-            String nameOfCity = this.cityDeliveries[i].getCityName();
-            if (nameOfCity.equals(cityName)){
-                kilometer = this.cityDeliveries[i].getKilometer();
-                break;
-            }
+    //1)  למצוא את עלות ההגעה לעיר
+    //2) כמות המשלוחים לאותה עיר -> פונקציית עזר
+
+
+public String mostExpensiveCityDelivery(){
+    double max = 0;
+    String mostExpensiveCityDelivery = "";
+    for (int i = 0; i < this.cityDeliveries.length; i++) {
+
+        CityDelivery cityDelivery = this.cityDeliveries[i];
+
+        double kilometer = cityDelivery.getKilometer() * 4.5; // עלות ההגעה לעיר
+        double countOfCityName = getCountOfCityName(cityDelivery.getCityName());
+        double deliveryCost = kilometer / countOfCityName;
+        if (deliveryCost > max){
+            max = deliveryCost;
+            mostExpensiveCityDelivery = cityDelivery.getCityName();
         }
-        double costOfGettingCity = kilometer * 4.5; //עלות ההגעה לעיר
-        //כמות המשלוחים שיש לאותה העיר.
-        int count = 0;
-        for (int i = 0; i < this.orders.length; i++) {
-            if (this.orders[i].getCityNameWithSplit().equals(cityName)){
-                count++;
-            }
-        }
-        return costOfGettingCity / count ;
     }
+    return mostExpensiveCityDelivery;
+}
+
+    //2) כמות המשלוחים לאותה עיר -> פונקציית עזר
+public int getCountOfCityName(String cityName){
+    int count = 0;
+    for (int i = 0; i < this.orders.length; i++) {
+        Order order = this.orders[i];
+        if (cityName.equals(order.getCityNameWithSplit())){
+            count++;
+        }
+    }
+  return count;
+}
+
 
 }
